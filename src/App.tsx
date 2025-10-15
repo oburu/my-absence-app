@@ -1,6 +1,13 @@
+import { useAbsences } from "./api";
 import "./app.css";
 
 function App() {
+  const { data, isLoading } = useAbsences();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  console.log(data);
+
   return (
     <>
       <h1>Dashboard</h1>
