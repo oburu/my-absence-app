@@ -14,3 +14,12 @@ export type AbsenceResponse = {
 export type AbsenceConflictsResponse = {
   conflicts: boolean;
 };
+
+export type TableData = {
+  name: string;
+  startDate: string;
+  endDate: Date;
+  status: boolean;
+  type: string;
+  conflicts: boolean | number;
+};

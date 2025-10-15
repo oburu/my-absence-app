@@ -2,7 +2,6 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { Box, styled } from "@mui/material";
 
 export const CustomTable = styled(Box)({
-  border: "1px solid #424242",
   borderRadius: "8px",
 });
 
@@ -19,7 +18,9 @@ export const Th = styled(Box)({
   fontSize: "1rem",
   textTransform: "uppercase",
   textAlign: "center",
-  boxShadow: "inset 0 0 0 1px #424242",
+  backgroundColor: "rgba(43, 23, 42, 1)",
+  boxShadow: "inset 0 0 0 1px #3b383eff",
+  borderRadius: "8px",
   "&:hover .resizer": {
     opacity: 1,
   },

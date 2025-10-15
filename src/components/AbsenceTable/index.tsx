@@ -9,8 +9,9 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { useAbsences } from "../../api";
+import type { TableData } from "../../types";
 import { calculateEndDate } from "../../utils";
-import { columns, type TableData } from "./constants";
+import { columns } from "./helper";
 import { CustomTable, SortIcon, Td, Th, Tr } from "./Table";
 
 export const AbsenceTable = () => {
@@ -38,7 +39,7 @@ export const AbsenceTable = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
-  if (isLoading) return <div>Loading Table...</div>;
+  if (isLoading) return <Box>Loading Table ⌛...</Box>;
 
   return (
     <Box sx={{ overflowX: "auto", width: "100%", margin: "0 auto" }}>
