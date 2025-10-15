@@ -14,9 +14,9 @@ export const Th = styled(Box)({
   position: "relative",
   display: "flex",
   color: "gray.400",
-  padding: "0.5rem",
+  padding: "1rem",
   fontWeight: "bold",
-  fontSize: "0.875rem",
+  fontSize: "1rem",
   textTransform: "uppercase",
   textAlign: "center",
   boxShadow: "inset 0 0 0 1px #424242",
@@ -26,14 +26,17 @@ export const Th = styled(Box)({
 });
 
 export const Td = styled(Box)({
-  padding: "0.5rem",
-  fontSize: "0.875rem",
+  padding: "0.75rem 1rem",
+  fontSize: "1rem",
   boxShadow: "inset 0 0 0 1px #424242",
 });
 
 export const SortIcon = styled(SwapVertIcon)({
+  display: "flex",
+  alignSelf: "center",
   fontSize: "1rem",
   color: "gray",
   cursor: "pointer",
   marginLeft: "8px",
+  marginRight: "8px",
 });

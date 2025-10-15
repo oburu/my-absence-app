@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { useAbsences } from "../../api";
+import { calculateEndDate } from "../../utils";
 import { columns, type TableData } from "./constants";
 import { CustomTable, SortIcon, Td, Th, Tr } from "./Table";
 
@@ -19,17 +20,14 @@ export const AbsenceTable = () => {
     () =>
       data?.map((absence) => ({
         name: `${absence.employee.firstName} ${absence.employee.lastName}`,
-        startDate: new Date(absence.startDate).toLocaleDateString("en-GB"),
-        endDate: new Date(
-          new Date(absence.startDate).setDate(
-            new Date(absence.startDate).getDate() + absence.days - 1
-          )
-        ).toLocaleDateString("en-GB"),
+        startDate: absence.startDate,
+        endDate: calculateEndDate(absence.startDate, absence.days),
         status: absence.approved,
         type: absence.absenceType,
       })),
     [data]
   );
+
   const table = useReactTable({
     data: parsedData || [],
     columns,
@@ -42,7 +40,7 @@ export const AbsenceTable = () => {
   if (isLoading) return <div>Loading Table...</div>;
 
   return (
-    <Box>
+    <Box sx={{ overflowX: "auto", width: "100%", margin: "0 auto" }}>
       <CustomTable width={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>

@@ -3,7 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 export type TableData = {
   name: string;
   startDate: string;
-  endDate: string;
+  endDate: Date;
   status: boolean;
   type: string;
 };
@@ -13,18 +13,21 @@ export const columns: ColumnDef<TableData>[] = [
     accessorKey: "name",
     header: "Name",
     cell: (info) => info.getValue(),
-    minSize: 200,
+    minSize: 250,
   },
   {
     accessorKey: "startDate",
-    header: "Start Date",
-    cell: (info) => info.getValue(),
+    header: "From",
+    cell: (info) => {
+      const date = String(info.getValue());
+      return new Date(date).toLocaleDateString("en-GB");
+    },
     minSize: 150,
   },
   {
     accessorKey: "endDate",
-    header: "End Date",
-    cell: (info) => info.getValue(),
+    header: "to",
+    cell: (info) => (info.getValue() as Date).toLocaleDateString("en-GB"),
     minSize: 150,
   },
   {
@@ -37,6 +40,6 @@ export const columns: ColumnDef<TableData>[] = [
     accessorKey: "type",
     header: "Type",
     cell: (info) => info.getValue(),
-    minSize: 150,
+    minSize: 200,
   },
 ];
