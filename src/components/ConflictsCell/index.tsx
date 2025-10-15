@@ -19,7 +19,7 @@ export const ConflictsCell = ({ id }: { id: number }) => {
         fontWeight: "bold",
       }}
     >
-      {hasConflict ? "conflicted ⚠️" : "all good ✅"}
+      {hasConflict ? "Conflicts" : "No Conflicts"}
     </Box>
   );
 };

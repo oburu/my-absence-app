@@ -11,12 +11,17 @@ import { useAbsences } from "../../api";
 import type { TableData } from "../../types";
 import { calculateEndDate } from "../../utils";
 import { ErrorMessage } from "../ErrorMessage";
+import { NameFilter } from "../NameFilter";
 import Pagination from "../Pagination";
-import { columns } from "./helper";
+import { getColumns } from "./helper";
 import { TableWrapper } from "./TableWrapper";
+import { useColumFilters } from "./useColumnFilters";
 
 export const AbsenceTable = () => {
   const { data, isLoading, isError } = useAbsences();
+
+  const { columnFilters, setColumnFilters, handleNameClick } =
+    useColumFilters();
 
   const parsedData: TableData[] | undefined = useMemo(
     () =>
@@ -31,9 +36,13 @@ export const AbsenceTable = () => {
     [data]
   );
 
+  const columns = useMemo(() => getColumns(handleNameClick), [handleNameClick]);
+
   const table = useReactTable({
     data: parsedData || [],
     columns,
+    state: { columnFilters },
+    onColumnFiltersChange: () => {},
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -45,9 +54,15 @@ export const AbsenceTable = () => {
   if (isLoading) return <Box>Loading Table ⌛...</Box>;
 
   return (
-    <Box sx={{ overflowX: "auto", width: "100%", margin: "0 auto" }}>
-      <TableWrapper table={table} />
+    <>
+      <NameFilter
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+      />
+      <Box sx={{ overflowX: "auto", width: "100%", margin: "0 auto" }}>
+        <TableWrapper table={table} />
+      </Box>
       {table.getPageCount() > 1 && <Pagination table={table} />}
-    </Box>
+    </>
   );
 };

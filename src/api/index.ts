@@ -21,7 +21,7 @@ export const useEmployeeAbsenceConflicts = (employeeId: number) =>
   useQuery({
     queryKey: ["absenceConflict", employeeId],
     queryFn: () => fetchAbsenceConflicts(employeeId),
-    enabled: !!employeeId,
+    enabled: Boolean(employeeId),
   });
 
 export const useAbsences = () =>

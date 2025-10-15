@@ -23,12 +23,7 @@ export const TableWrapper = ({ table }: { table: Table<TableData> }) => (
       </Tr>
     ))}
     {table.getRowModel().rows.map((row) => (
-      <Tr
-        key={row.id}
-        sx={{
-          backgroundColor: row.index % 2 === 0 ? "#151b23" : "transparent",
-        }}
-      >
+      <Tr key={row.id}>
         {row.getVisibleCells().map((cell) => (
           <Td key={cell.id} width={cell.column.getSize()}>
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
