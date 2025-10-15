@@ -17,9 +17,6 @@ function App() {
         </span>
       </Typography>
       <AbsenceTable />
-      <Typography py={4}>
-        Click on row to see only that user's absences
-      </Typography>
     </Box>
   );
 }

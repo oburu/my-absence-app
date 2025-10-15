@@ -14,7 +14,7 @@ export const ConflictsCell = ({ id }: { id: number }) => {
   return (
     <Box
       sx={{
-        color: hasConflict ? "yellow" : "green",
+        color: hasConflict ? "tomato" : "green",
         textTransform: "capitalize",
         fontWeight: "bold",
       }}
