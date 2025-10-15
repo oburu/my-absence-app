@@ -1,25 +1,13 @@
-import { useAbsences, useEmployeeAbsenceConflicts } from "./api";
 import "./app.css";
+import { AbsenceTable } from "./components/AbsenceTable";
 
 function App() {
-  const { data, isLoading } = useAbsences();
-  const { data: conflictData } = useEmployeeAbsenceConflicts(1);
-
-  if (isLoading) return <div>Loading...</div>;
-
-  console.log(data);
-  if (data) {
-    console.log(conflictData);
-  }
-
   return (
-    <>
-      <h1>Dashboard</h1>
-
-      <p className="read-the-docs">
-        Click on row to see only that user's absences
-      </p>
-    </>
+    <div className="max-w-4xl mx-auto p-12">
+      <h2>Absence Dashboard</h2>
+      <AbsenceTable />
+      <p>Click on row to see only that user's absences</p>
+    </div>
   );
 }
 
