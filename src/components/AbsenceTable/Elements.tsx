@@ -16,7 +16,6 @@ export const Th = styled(Box)({
   padding: "1rem",
   fontWeight: "bold",
   fontSize: "1rem",
-  textTransform: "uppercase",
   textAlign: "center",
   backgroundColor: "rgba(43, 23, 42, 1)",
   boxShadow: "inset 0 0 0 1px #3b383eff",
