@@ -24,6 +24,7 @@ export const AbsenceTable = () => {
         endDate: calculateEndDate(absence.startDate, absence.days),
         status: absence.approved,
         type: absence.absenceType,
+        conflicts: absence.id,
       })),
     [data]
   );

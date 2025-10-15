@@ -1,4 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
+import { ConflictsCell } from "../ConflictsCell";
 
 export type TableData = {
   name: string;
@@ -6,20 +7,21 @@ export type TableData = {
   endDate: Date;
   status: boolean;
   type: string;
+  conflicts: boolean | number;
 };
 
 export const columns: ColumnDef<TableData>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    cell: (info) => info.getValue(),
+    cell: ({ getValue }) => getValue(),
     minSize: 250,
   },
   {
     accessorKey: "startDate",
     header: "From",
-    cell: (info) => {
-      const date = String(info.getValue());
+    cell: ({ getValue }) => {
+      const date = String(getValue());
       return new Date(date).toLocaleDateString("en-GB");
     },
     minSize: 150,
@@ -27,19 +29,27 @@ export const columns: ColumnDef<TableData>[] = [
   {
     accessorKey: "endDate",
     header: "to",
-    cell: (info) => (info.getValue() as Date).toLocaleDateString("en-GB"),
+    cell: ({ getValue }) => getValue<Date>().toLocaleDateString("en-GB"),
     minSize: 150,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: (info) => (info.getValue() ? "Approved" : "Pending"),
+    cell: ({ getValue }) => (getValue() ? "Approved" : "Pending"),
     minSize: 150,
+    enableSorting: false,
   },
   {
     accessorKey: "type",
     header: "Type",
-    cell: (info) => info.getValue(),
+    cell: ({ getValue }) => getValue(),
     minSize: 200,
+  },
+
+  {
+    accessorKey: "conflicts",
+    header: "Conflicts",
+    cell: ({ getValue }) => <ConflictsCell id={getValue<number>()} />,
+    enableSorting: false,
   },
 ];

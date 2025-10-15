@@ -34,7 +34,7 @@ export const Td = styled(Box)({
 export const SortIcon = styled(SwapVertIcon)({
   display: "flex",
   alignSelf: "center",
-  fontSize: "1rem",
+  fontSize: "1.5rem",
   color: "gray",
   cursor: "pointer",
   marginLeft: "8px",
