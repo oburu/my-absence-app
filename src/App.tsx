@@ -1,12 +1,16 @@
-import { useAbsences } from "./api";
+import { useAbsences, useEmployeeAbsenceConflicts } from "./api";
 import "./app.css";
 
 function App() {
   const { data, isLoading } = useAbsences();
+  const { data: conflictData } = useEmployeeAbsenceConflicts(1);
 
   if (isLoading) return <div>Loading...</div>;
 
   console.log(data);
+  if (data) {
+    console.log(conflictData);
+  }
 
   return (
     <>
