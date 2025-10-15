@@ -8,14 +8,14 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { useAbsences } from "../../api";
+import { useColumFilters } from "../../hooks/useColumnFilters";
 import type { TableData } from "../../types";
 import { calculateEndDate } from "../../utils";
 import { ErrorMessage } from "../ErrorMessage";
 import { NameFilter } from "../NameFilter";
 import Pagination from "../Pagination";
+import { DataTable } from "./DataTable";
 import { getColumns } from "./helper";
-import { TableWrapper } from "./TableWrapper";
-import { useColumFilters } from "./useColumnFilters";
 
 export const AbsenceTable = () => {
   const { data, isLoading, isError } = useAbsences();
@@ -60,7 +60,7 @@ export const AbsenceTable = () => {
         setColumnFilters={setColumnFilters}
       />
       <Box sx={{ overflowX: "auto", width: "100%", margin: "0 auto" }}>
-        <TableWrapper table={table} />
+        <DataTable table={table} />
       </Box>
       {table.getPageCount() > 1 && <Pagination table={table} />}
     </>

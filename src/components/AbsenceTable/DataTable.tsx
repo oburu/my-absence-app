@@ -2,7 +2,7 @@ import { flexRender, type Table } from "@tanstack/react-table";
 import type { TableData } from "../../types";
 import { CustomTable, SortIcon, Td, Th, Tr } from "./Elements";
 
-export const TableWrapper = ({ table }: { table: Table<TableData> }) => (
+export const DataTable = ({ table }: { table: Table<TableData> }) => (
   <CustomTable width={table.getTotalSize()}>
     {table.getHeaderGroups().map((headerGroup) => (
       <Tr key={headerGroup.id}>

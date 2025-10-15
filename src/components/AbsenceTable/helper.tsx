@@ -1,7 +1,7 @@
-import Button from "@mui/material/Button";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TableData } from "../../types";
 import { ConflictsCell } from "../ConflictsCell";
+import { NameCell } from "../NameCell";
 
 export function getColumns(
   onNameClick: (name: string) => void
@@ -10,24 +10,9 @@ export function getColumns(
     {
       accessorKey: "name",
       header: "Full Name",
-      cell: ({ getValue }) => {
-        const name = getValue<string>();
-
-        return (
-          <Button
-            onClick={() => onNameClick(name)}
-            style={{
-              color: "#A4CFFC",
-              textDecoration: "underline",
-              cursor: "pointer",
-              fontWeight: "bold",
-              padding: 0,
-            }}
-          >
-            {name}
-          </Button>
-        );
-      },
+      cell: ({ getValue }) => (
+        <NameCell name={getValue<string>()} onNameClick={onNameClick} />
+      ),
       minSize: 250,
     },
     {
