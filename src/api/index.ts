@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { API_BASE_URL } from "../constants";
 import type { AbsenceConflictsResponse, AbsenceResponse } from "../types";
-
-const API_BASE_URL = "https://front-end-kata.brighthr.workers.dev/api/";
 
 export async function fetchAbsences(): Promise<AbsenceResponse[]> {
   const res = await fetch(`${API_BASE_URL}absences`);

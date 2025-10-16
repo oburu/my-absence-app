@@ -6,7 +6,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: "./src/setupTests.ts",
+    setupFiles: "./src/test/setupTests.ts",
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
@@ -16,6 +16,9 @@ export default defineConfig({
         "src/setupTests.ts",
         "src/main.tsx",
         "**/*.d.ts",
+        "**/*.config.ts",
+        "**/*.config.js",
+        "**/**/types/*",
       ],
     },
   },

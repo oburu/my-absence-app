@@ -17,10 +17,8 @@ const Pagination = ({ table }: { table: Table<TableData> }) => {
       }}
     >
       <Typography variant="body2" component="div">
-        Page{" "}
-        <strong>
-          {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-        </strong>{" "}
+        Page {table.getState().pagination.pageIndex + 1} of{" "}
+        {table.getPageCount()}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <PaginationButton
