@@ -31,9 +31,11 @@ describe("App", () => {
     expect(screen.getByText("Employees Absences")).toBeInTheDocument();
     expect(screen.getByText("Loading Table ⌛...")).toBeInTheDocument();
 
-    await waitFor(() => {
+    await waitFor(async () => {
+      const list = await screen.findAllByText("No Conflicts");
+      expect(list.length).toBe(9);
       expect(screen.getByText("Rahaf Deckard")).toBeInTheDocument();
-      expect(screen.getByText("No Conflicts")).toBeInTheDocument();
+      expect(screen.getByText("Has Conflicts")).toBeInTheDocument();
       expect(screen.getByText("05/06/2022")).toBeInTheDocument();
     });
   });
