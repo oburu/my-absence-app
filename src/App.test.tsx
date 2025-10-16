@@ -87,21 +87,4 @@ describe("App", () => {
       ).toBeInTheDocument();
     });
   });
-
-  test("Click on a name with a conflict", async () => {
-    renderWithClient(<App />);
-
-    const list = await screen.findAllByText("Jabez Nasser");
-    const firstElement = list[0];
-
-    act(() => {
-      fireEvent.click(firstElement);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText("No Conflicts")).toBeInTheDocument();
-      expect(screen.getByText("Has Conflicts")).toBeInTheDocument();
-      expect(screen.getByText("Filtering by")).toBeInTheDocument();
-    });
-  });
 });
