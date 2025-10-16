@@ -21,9 +21,9 @@ export const NameFilter = ({
         <Stack direction="row" spacing={1} alignItems="center">
           <Typography fontSize="1rem">Filtering by</Typography>
           <Chip
+            data-testid="chip"
             label={nameFilter}
             variant="outlined"
-            onDelete={() => setColumnFilters([])}
             onClick={() => setColumnFilters([])}
             color="warning"
             sx={{

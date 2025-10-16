@@ -1,11 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { describe, expect, test } from "vitest";
 import App from "./App";
@@ -23,6 +17,16 @@ function renderWithClient(ui: React.ReactElement) {
     <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
   );
 }
+
+function response404() {
+  return new HttpResponse(null, { status: 404 });
+}
+
+const errorExpect = () => {
+  expect(
+    screen.getByText("Sorry there is an error with the connection ⚠️")
+  ).toBeInTheDocument();
+};
 
 describe("App", () => {
   test("Fetches the data correctly and parses the 'To' date properly", async () => {
@@ -47,44 +51,32 @@ describe("App", () => {
       expect(screen.getByText("Enya Behm")).toBeInTheDocument();
     });
 
-    act(() => {
-      fireEvent.click(screen.getByText("Rahaf Deckard"));
-    });
+    fireEvent.click(screen.getByText("Rahaf Deckard"));
 
     await waitFor(() => {
       expect(screen.queryByText("Enya Behm")).not.toBeInTheDocument();
     });
+
+    fireEvent.click(screen.getByTestId("chip"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Enya Behm")).toBeInTheDocument();
+    });
   });
 
   test("Shows error message when there's no data response for the table", async () => {
-    server.use(
-      http.get(`${API_BASE_URL}${ABSENCE_PATH}`, () => {
-        return new HttpResponse(null, { status: 404 });
-      })
-    );
+    server.use(http.get(`${API_BASE_URL}${ABSENCE_PATH}`, response404));
 
     renderWithClient(<App />);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Sorry there is an error with the connection ⚠️")
-      ).toBeInTheDocument();
-    });
+    await waitFor(errorExpect);
   });
 
   test("Shows error message when there's no conflicts api response", async () => {
     renderWithClient(<App />);
 
-    server.use(
-      http.get(`${API_BASE_URL}${CONFLICTS_PATH}1`, () => {
-        return new HttpResponse(null, { status: 404 });
-      })
-    );
+    server.use(http.get(`${API_BASE_URL}${CONFLICTS_PATH}1`, response404));
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Sorry there is an error with the connection ⚠️")
-      ).toBeInTheDocument();
-    });
+    await waitFor(errorExpect);
   });
 });
