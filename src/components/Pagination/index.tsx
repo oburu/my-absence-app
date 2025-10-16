@@ -5,37 +5,32 @@ import type { Table } from "@tanstack/react-table";
 import type { TableData } from "../../types";
 import { PaginationButton } from "./PaginationButton";
 
-const Pagination = ({ table }: { table: Table<TableData> }) => {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        mt: 2,
-        color: "white",
-      }}
-    >
-      <Typography variant="body2" component="div">
-        Page {table.getState().pagination.pageIndex + 1} of{" "}
-        {table.getPageCount()}
-      </Typography>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <PaginationButton
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ArrowBackIcon />
-        </PaginationButton>
-        <PaginationButton
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ArrowForwardIcon />
-        </PaginationButton>
-      </Box>
+export const Pagination = ({ table }: { table: Table<TableData> }) => (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      gap: 2,
+      mt: 2,
+      color: "white",
+    }}
+  >
+    <Typography variant="body2" component="div">
+      Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+    </Typography>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <PaginationButton
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
+        <ArrowBackIcon />
+      </PaginationButton>
+      <PaginationButton
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        <ArrowForwardIcon />
+      </PaginationButton>
     </Box>
-  );
-};
-
-export default Pagination;
+  </Box>
+);

@@ -13,7 +13,7 @@ import type { TableData } from "../../types";
 import { calculateEndDate } from "../../utils";
 import { ErrorMessage } from "../ErrorMessage";
 import { NameFilter } from "../NameFilter";
-import Pagination from "../Pagination";
+import { Pagination } from "../Pagination";
 import { DataTable } from "./DataTable";
 import { getColumns } from "./helper";
 
