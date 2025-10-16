@@ -20,9 +20,6 @@ export const Th = styled(Box)({
   backgroundColor: "rgba(43, 23, 42, 1)",
   boxShadow: "inset 0 0 0 1px #3b383eff",
   borderRadius: "8px",
-  "&:hover .resizer": {
-    opacity: 1,
-  },
 });
 
 export const Td = styled(Box)({

@@ -12,6 +12,7 @@ export const NameCell = ({ name, onNameClick }: NameCellProps) => {
       style={{
         color: "#A4CFFC",
         textDecoration: "underline",
+        textTransform: "capitalize",
         cursor: "pointer",
         fontWeight: "bold",
         padding: 0,
