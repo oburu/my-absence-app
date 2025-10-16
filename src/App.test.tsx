@@ -66,17 +66,13 @@ describe("App", () => {
 
   test("Shows error message when there's no data response for the table", async () => {
     server.use(http.get(`${API_BASE_URL}${ABSENCE_PATH}`, response404));
-
     renderWithClient(<App />);
-
     await waitFor(errorExpect);
   });
 
   test("Shows error message when there's no conflicts api response", async () => {
     renderWithClient(<App />);
-
     server.use(http.get(`${API_BASE_URL}${CONFLICTS_PATH}1`, response404));
-
     await waitFor(errorExpect);
   });
 });

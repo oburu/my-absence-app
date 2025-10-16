@@ -15,6 +15,8 @@ export const NameFilter = ({
     | string
     | undefined;
 
+  const handleOnClose = () => setColumnFilters([]);
+
   return (
     <Stack height="3.5rem">
       {nameFilter ? (
@@ -24,7 +26,8 @@ export const NameFilter = ({
             data-testid="chip"
             label={nameFilter}
             variant="outlined"
-            onClick={() => setColumnFilters([])}
+            onClick={handleOnClose}
+            onDelete={handleOnClose}
             color="warning"
             sx={{
               fontSize: "1rem",
