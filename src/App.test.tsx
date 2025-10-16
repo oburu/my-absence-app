@@ -4,7 +4,7 @@ import { http, HttpResponse } from "msw";
 import { describe, expect, test } from "vitest";
 import App from "./App";
 import { ABSENCE_PATH, API_BASE_URL, CONFLICTS_PATH } from "./constants";
-import { server } from "./test/mocks/node";
+import { server } from "./test/setupTests";
 
 function renderWithClient(ui: React.ReactElement) {
   const queryClient = new QueryClient({
@@ -18,9 +18,7 @@ function renderWithClient(ui: React.ReactElement) {
   );
 }
 
-function response404() {
-  return new HttpResponse(null, { status: 404 });
-}
+const response404 = () => new HttpResponse(null, { status: 404 });
 
 const errorExpect = () => {
   expect(
@@ -52,15 +50,31 @@ describe("App", () => {
     });
 
     fireEvent.click(screen.getByText("Rahaf Deckard"));
-
     await waitFor(() => {
       expect(screen.queryByText("Enya Behm")).not.toBeInTheDocument();
     });
 
     fireEvent.click(screen.getByTestId("chip"));
-
     await waitFor(() => {
       expect(screen.getByText("Enya Behm")).toBeInTheDocument();
+    });
+  });
+
+  test("Click on pagination buttons", async () => {
+    renderWithClient(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Rahaf Deckard")).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByTestId("nextPage"));
+    await waitFor(() => {
+      expect(screen.getByText("Shrey Frederickson")).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByTestId("backPage"));
+    await waitFor(() => {
+      expect(screen.getByText("Rahaf Deckard")).toBeInTheDocument();
     });
   });
 

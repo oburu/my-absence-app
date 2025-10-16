@@ -49,9 +49,9 @@ export const AbsenceTable = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
-  if (isError && !isLoading) return <ErrorMessage />;
-
   if (isLoading) return <Box>Loading Table ⌛...</Box>;
+
+  if (isError && !isLoading) return <ErrorMessage />;
 
   return (
     <>

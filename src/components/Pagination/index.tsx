@@ -20,12 +20,14 @@ export const Pagination = ({ table }: { table: Table<TableData> }) => (
     </Typography>
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <PaginationButton
+        data-testid="backPage"
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
         <ArrowBackIcon />
       </PaginationButton>
       <PaginationButton
+        data-testid="nextPage"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >
