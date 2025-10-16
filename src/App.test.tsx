@@ -9,7 +9,7 @@ import {
 import { http, HttpResponse } from "msw";
 import { describe, expect, test } from "vitest";
 import App from "./App";
-import { API_BASE_URL } from "./constants";
+import { ABSENCE_PATH, API_BASE_URL, CONFLICTS_PATH } from "./constants";
 import { server } from "./test/mocks/node";
 
 function renderWithClient(ui: React.ReactElement) {
@@ -24,8 +24,8 @@ function renderWithClient(ui: React.ReactElement) {
   );
 }
 
-describe("It renders the App", () => {
-  test("Fetches the data correctly and parses the to date properly", async () => {
+describe("App", () => {
+  test("Fetches the data correctly and parses the 'To' date properly", async () => {
     renderWithClient(<App />);
 
     expect(screen.getByText("Employees Absences")).toBeInTheDocument();
@@ -54,9 +54,9 @@ describe("It renders the App", () => {
     });
   });
 
-  test("Shows error message", async () => {
+  test("Shows error message when there's no data response for the table", async () => {
     server.use(
-      http.get(`${API_BASE_URL}absences`, () => {
+      http.get(`${API_BASE_URL}${ABSENCE_PATH}`, () => {
         return new HttpResponse(null, { status: 404 });
       })
     );
@@ -67,6 +67,39 @@ describe("It renders the App", () => {
       expect(
         screen.getByText("Sorry there is an error with the connection ⚠️")
       ).toBeInTheDocument();
+    });
+  });
+
+  test("Shows error message when there's no conflicts api response", async () => {
+    renderWithClient(<App />);
+
+    server.use(
+      http.get(`${API_BASE_URL}${CONFLICTS_PATH}1`, () => {
+        return new HttpResponse(null, { status: 404 });
+      })
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Sorry there is an error with the connection ⚠️")
+      ).toBeInTheDocument();
+    });
+  });
+
+  test("Click on a name with a conflict", async () => {
+    renderWithClient(<App />);
+
+    const list = await screen.findAllByText("Jabez Nasser");
+    const firstElement = list[0];
+
+    act(() => {
+      fireEvent.click(firstElement);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("No Conflicts")).toBeInTheDocument();
+      expect(screen.getByText("Has Conflicts")).toBeInTheDocument();
+      expect(screen.getByText("Filtering by")).toBeInTheDocument();
     });
   });
 });

@@ -5,14 +5,11 @@ export const useColumFilters = () => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const handleNameClick = useCallback((name: string) => {
-    setColumnFilters((prev) => {
-      const current = prev.find((item) => item.id === "name");
-      if (current?.value === name) {
-        return prev.filter((item) => item.id !== "name");
-      }
-
-      return [{ id: "name", value: name }];
-    });
+    setColumnFilters((prev) =>
+      prev.some((item) => item.id === "name" && item.value === name)
+        ? prev.filter((item) => item.id !== "name")
+        : [{ id: "name", value: name }]
+    );
   }, []);
 
   return {

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_BASE_URL } from "../constants";
+import { ABSENCE_PATH, API_BASE_URL, CONFLICTS_PATH } from "../constants";
 import type { AbsenceConflictsResponse, AbsenceResponse } from "../types";
 
 export async function fetchAbsences(): Promise<AbsenceResponse[]> {
-  const res = await fetch(`${API_BASE_URL}absences`);
+  const res = await fetch(`${API_BASE_URL}${ABSENCE_PATH}`);
   if (!res.ok) throw new Error("Failed to fetch Absences");
   return res.json();
 }
@@ -11,7 +11,7 @@ export async function fetchAbsences(): Promise<AbsenceResponse[]> {
 export async function fetchAbsenceConflicts(
   employeeId: number
 ): Promise<AbsenceConflictsResponse> {
-  const res = await fetch(`${API_BASE_URL}conflict/${employeeId}`);
+  const res = await fetch(`${API_BASE_URL}${CONFLICTS_PATH}${employeeId}`);
   if (!res.ok) throw new Error("Failed to fetch Absence Conflict");
   return res.json();
 }
